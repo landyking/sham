@@ -65,7 +65,7 @@
         </script>
         <script type="text/html" id="tableRowMenu">
             <a class="layui-btn layui-btn-xs" lay-event="dialog"
-               lay-data="{url:'_admin/trafficIllegal/audit.jsp',width:650,height:700,title:'test',params:{id:'?'}}">test</a>
+               lay-data="{url:'views/listColumn.jsp',width:650,height:700,title:'test',params:{dataSource:'?',name:'?'}}">表结构</a>
         </script>
     </div>
 </div>
@@ -74,7 +74,6 @@
 <script src="static/js/layui.config.js"></script>
 <script>
     layui.use(['singleTableList', 'jquery', 'hyForm', 'form'], function () {
-        var layer = layui.layer;
         var hyForm = layui.hyForm;
         var form = layui.form;
         var $ = layui.$;
@@ -82,6 +81,8 @@
             layFilter: 'dataTable',
             tableConfig: {
                 url: 'api/listTable',
+                limit: 1000,
+                limits: [1000],
                 cols: [[
                     {type: 'numbers', fixed: true},
                     {field: 'catalog', title: 'CATALOG', width: 120},
@@ -89,28 +90,30 @@
                     {field: 'type', title: '类型', width: 100},
                     {field: 'name', title: '名称', width: 200},
                     {field: 'remarks', title: '描述'},
-                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 210}
+                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 100}
                 ]]
             },
             toolbarListener: {},
             rowMenuListener: {}
         });
         form.on('select(dataSource)', function (data) {
-            var p1 = hyForm.renderRemoteSelect($("select[name=catalog]"), {
-                url: 'api/listCatalog?dataSource=' + data.value,
-                firstEmpty: false
-            });
-            var p2 = hyForm.renderRemoteSelect($("select[name=schema]"), {
-                url: 'api/listSchema?dataSource=' + data.value,
-                firstEmpty: false
-            });
-            var p3 = hyForm.renderRemoteSelect($("select[name=type]"), {
-                url: 'api/listTableType?dataSource=' + data.value,
-                firstEmpty: true
-            });
-            $.when(p1, p2, p3).done(function () {
-                form.render('select');
-            });
+            if (!$.isEmptyObject(data.value)) {
+                var p1 = hyForm.renderRemoteSelect($("select[name=catalog]"), {
+                    url: 'api/listCatalog?dataSource=' + data.value,
+                    firstEmpty: false
+                });
+                var p2 = hyForm.renderRemoteSelect($("select[name=schema]"), {
+                    url: 'api/listSchema?dataSource=' + data.value,
+                    firstEmpty: false
+                });
+                var p3 = hyForm.renderRemoteSelect($("select[name=type]"), {
+                    url: 'api/listTableType?dataSource=' + data.value,
+                    firstEmpty: true
+                });
+                $.when(p1, p2, p3).done(function () {
+                    form.render('select');
+                });
+            }
         });
     })
 </script>

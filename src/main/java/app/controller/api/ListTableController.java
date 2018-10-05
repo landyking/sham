@@ -45,7 +45,11 @@ public class ListTableController extends ApiController {
                 return JdbcTool.listTable(dataBaseType, connection, catalog, schema, type, table);
             }
         });
-        ArrayNode data = QuickJson.newArray();
+
+        ObjectNode rst = QuickJson.newObject();
+        rst.put("code", 0);
+        rst.put("count", list.size());
+        ArrayNode data = rst.putArray("data");
         for (JdbcTool.TableStruct one : list) {
             ObjectNode o = data.addObject();
             o.put("catalog", one.catalog);
@@ -53,7 +57,8 @@ public class ListTableController extends ApiController {
             o.put("name", one.name);
             o.put("type", one.type);
             o.put("remarks", one.remarks);
+            o.put("dataSource", dataSource);
         }
-        return jsonResultSuccess("data", data);
+        return jsonResult(rst);
     }
 }
