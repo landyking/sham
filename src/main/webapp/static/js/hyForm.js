@@ -29,6 +29,38 @@ layui.define(['hyUtil', 'form', 'layer', 'element', 'laydate'], function (export
             }
         });
     };
+
+    hyForm.renderRemoteSelect = function (me, config) {
+        var config = $.extend({
+            labelField: 'label',
+            valueField: 'value',
+            firstEmpty: false,
+            firstEmptyLabel: '---'
+        }, config);
+        var promise = $.get(hyForm.remoteSelectUrl + config.url, function (rst) {
+            if (rst.code === 0) {
+                me.empty();
+                if (config.firstEmpty) {
+                    me.append('<option value="">' + config.firstEmptyLabel + '</option>');
+                }
+                $.each(rst.data, function (idx, one) {
+                    var label, value;
+                    if ($.isPlainObject(one)) {
+                        label = one[config.labelField];
+                        value = one[config.valueField];
+                    } else {
+                        label = one + "";
+                        value = one + "";
+                    }
+                    me.append('<option value="' + value + '">' + label + '</option>');
+                });
+            } else {
+                hy.msg("加载下拉数据失败:" + rst.msg);
+            }
+        });
+        return promise;
+    };
+
     hyForm.loadRemoteSelect = function () {
         var arr = [];
         $("select.hy-select").each(function () {
@@ -36,27 +68,8 @@ layui.define(['hyUtil', 'form', 'layer', 'element', 'laydate'], function (export
             var ld = me.attr("lay-data");
             if (ld) {
                 try {
-                    var config = $.extend({
-                        labelField: 'label',
-                        valueField: 'value',
-                        firstEmpty: false,
-                        firstEmptyLabel: '---'
-                    }, new Function('return ' + ld)());
-                    var promise = $.get(hyForm.remoteSelectUrl + config.url, function (rst) {
-                        if (rst.code === 0) {
-                            me.empty();
-                            if (config.firstEmpty) {
-                                me.append('<option value="">' + config.firstEmptyLabel + '</option>');
-                            }
-                            $.each(rst.data, function (idx, one) {
-                                var label = one[config.labelField];
-                                var value = one[config.valueField];
-                                me.append('<option value="' + value + '">' + label + '</option>');
-                            });
-                        } else {
-                            hy.msg("加载下拉数据失败:" + rst.msg);
-                        }
-                    });
+                    var setConfig = new Function('return ' + ld)();
+                    var promise = hyForm.renderRemoteSelect(me, setConfig);
                     arr.push(promise);
                 } catch (e) {
                     hint.error('row menu property lay-data configuration item has a syntax error: ' + ld)

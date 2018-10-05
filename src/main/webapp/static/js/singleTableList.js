@@ -54,8 +54,8 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
         //渲染数据表格
         var stable = table.render(myCfg.tableConfig);
         $(window).resize(function () {
-            console.log(arguments);
-            // layui.table.reload('dataTable', {height: calcTableHeight()});
+            // console.log(arguments);
+            layui.table.reload('dataTable', {height: calcTableHeight()});
         });
         var processDialog = function (btn, arr) {
             var layData = btn.attr("lay-data");

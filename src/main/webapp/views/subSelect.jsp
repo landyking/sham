@@ -15,12 +15,12 @@
 </head>
 <body>
 <div class="layui-card">
-    <div class="layui-card-header layuiadmin-card-header-auto">
+    <div class="layui-card-header sham-card-header">
         <form class="layui-form" id="filterForm">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">数据源</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width:100px;">
                         <select name="dataSource" lay-filter="dataSource" class="hy-select"
                                 lay-data="{url:'api/listDataSource',firstEmpty:true}">
                         </select>
@@ -28,32 +28,32 @@
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">CATALOG</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width:100px;">
                         <select name="catalog">
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">SCHEMA</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 120px;">
                         <select name="schema">
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">TYPE</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 120px;">
                         <select name="type">
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <a class="layui-btn" lay-submit="" lay-filter="searchExec">
+                    <button class="layui-btn" lay-submit lay-filter="searchExec">
                         <i class="layui-icon layui-icon-search"></i>
-                    </a>
-                    <a class="layui-btn layui-btn-normal" lay-filter="searchReset">
+                    </button>
+                    <%--<button class="layui-btn layui-btn-normal" lay-submit lay-filter="searchReset">
                         <i class="layui-icon layui-icon-refresh-3"></i>
-                    </a>
+                    </button>--%>
                 </div>
             </div>
         </form>
@@ -61,9 +61,7 @@
     <div class="layui-card-body">
         <table id="dataTable" lay-filter="dataTable"></table>
         <script type="text/html" id="tableToolbar">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="export">export</button>
-            </div>
+
         </script>
         <script type="text/html" id="tableRowMenu">
             <a class="layui-btn layui-btn-xs" lay-event="dialog"
@@ -72,10 +70,10 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="static/layui/layui.js"></script>
-<script type="text/javascript" src="static/js/layui.config.js"></script>
-<script type="text/javascript">
-    layui.use(['jquery', 'tips', 'singleTableList', 'common', 'form'], function () {
+<script src="static/layui/layui.js"></script>
+<script src="static/js/layui.config.js"></script>
+<script>
+    layui.use(['singleTableList', 'jquery', 'hyForm', 'form'], function () {
         var layer = layui.layer;
         var hyForm = layui.hyForm;
         var form = layui.form;

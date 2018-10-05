@@ -75,16 +75,28 @@
             <version>1.1.1</version>
         </dependency>
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>12.1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/webapp/WEB-INF/libs/ojdbc6-12.1.0.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.46</version>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>

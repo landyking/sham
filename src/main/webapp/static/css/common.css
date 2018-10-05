@@ -1,9 +1,20 @@
-.sham-card-container {
-    padding: 20px;
-    background-color: #F2F2F2;
+html {
+    overflow-x: hidden;
+    height: 100%;
 }
 
-.sham-card-header {
+body {
+    background-color: #f2f2f2;
+    padding: 15px;
+    color: #666;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.layui-card-header.sham-card-header {
     padding-top: 15px;
     height: auto;
 }
