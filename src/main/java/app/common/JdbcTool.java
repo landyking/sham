@@ -23,6 +23,18 @@ public class JdbcTool {
         public String type;
     }
 
+    public static class ColumnStruct {
+        public String name;
+        public Integer dataType;
+        public String typeName;
+        public Integer columnSize;
+        public Integer decimalDigits;
+        public String remarks;
+        public String columnDef;
+        public String isNullable;
+        public String isAutoIncrement;
+    }
+
     public static List<String> listCatalog(DBType dataBaseType, Connection connection) throws SQLException {
         ResultSet catalogs = connection.getMetaData().getCatalogs();
         LinkedList<String> rst = Lists.newLinkedList();
@@ -96,12 +108,59 @@ public class JdbcTool {
             String table_type = tables.getString("TABLE_TYPE");
             String remarks = tables.getString("REMARKS");
             TableStruct ts = new TableStruct();
-            ts.catalog=table_cat;
-            ts.schema=table_schem;
+            ts.catalog = table_cat;
+            ts.schema = table_schem;
             ts.name = table_name;
             ts.type = table_type;
             ts.remarks = remarks;
             rst.add(ts);
+        }
+        return rst;
+    }
+
+    public static List<ColumnStruct> listTableColumn(DBType dataBaseType, Connection connection, String cat, String schema, String table) throws SQLException {
+        if (Texts.hasText(cat)) {
+            cat = cat.trim().toUpperCase();
+        } else {
+            cat = null;
+        }
+        if (Texts.hasText(schema)) {
+            schema = schema.trim().toUpperCase();
+        } else {
+            schema = null;
+        }
+        if (Texts.hasText(table)) {
+            table = table.trim().toUpperCase();
+        } else {
+            throw new RuntimeException("未指定表");
+        }
+        List<ColumnStruct> rst = Lists.newLinkedList();
+        ResultSet columns = connection.getMetaData().getColumns(cat, schema, table, "%");
+        int max = 1000;
+        int count = 0;
+        while (columns.next() && count++ <= max) {
+
+            String column_name = columns.getString("COLUMN_NAME");
+            int data_type = columns.getInt("DATA_TYPE");
+            String type_name = columns.getString("TYPE_NAME");
+            int column_size = columns.getInt("COLUMN_SIZE");
+            int decimal_digits = columns.getInt("DECIMAL_DIGITS");
+            String remarks = columns.getString("REMARKS");
+            String column_def = columns.getString("COLUMN_DEF");
+            String is_nullable = columns.getString("IS_NULLABLE");
+            String is_autoincrement = columns.getString("IS_AUTOINCREMENT");
+
+            ColumnStruct cs = new ColumnStruct();
+            cs.name = column_name;
+            cs.dataType = data_type;
+            cs.typeName = type_name;
+            cs.columnSize = column_size;
+            cs.decimalDigits = decimal_digits;
+            cs.remarks = remarks;
+            cs.columnDef = column_def;
+            cs.isNullable = is_nullable;
+            cs.isAutoIncrement = is_autoincrement;
+            rst.add(cs);
         }
         return rst;
     }

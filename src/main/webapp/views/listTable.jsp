@@ -65,7 +65,7 @@
         </script>
         <script type="text/html" id="tableRowMenu">
             <a class="layui-btn layui-btn-xs" lay-event="dialog"
-               lay-data="{url:'views/listColumn.jsp',width:650,height:700,title:'test',params:{dataSource:'?',name:'?'}}">表结构</a>
+               lay-data="{url:'views/listTableColumn.jsp',width:800,height:600,title:'test',params:{dataSource:'?',name:'?',catalog:'?',schema:'?'}}">表结构</a>
         </script>
     </div>
 </div>
@@ -87,7 +87,7 @@
                     {type: 'numbers', fixed: true},
                     {field: 'catalog', title: 'CATALOG', width: 120},
                     {field: 'schema', title: 'SCHEMA', width: 120},
-                    {field: 'type', title: '类型', width: 100},
+                    {field: 'type', title: '类型', width: 120},
                     {field: 'name', title: '名称', width: 200},
                     {field: 'remarks', title: '描述'},
                     {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 100}
