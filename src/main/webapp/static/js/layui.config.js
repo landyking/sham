@@ -1,0 +1,1 @@
+layui.config({base: 'static/js/'})/*.extend({test: '../test'})*/;
