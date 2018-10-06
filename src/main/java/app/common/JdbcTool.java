@@ -3,7 +3,7 @@ package app.common;
 import app.service.DBType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.springframework.jdbc.support.JdbcUtils;
+import org.beetl.sql.core.JavaType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,6 +17,18 @@ import java.util.Set;
  * Created by landy on 2018/10/5.
  */
 public class JdbcTool {
+
+    public static String convertJavaType(Integer dataType, Integer columnSize, Integer decimalDigits) {
+        String type = JavaType.getType(dataType, columnSize, decimalDigits);
+            /*if(config.isPreferBigDecimal()&&type.equals("Double")){
+                type = "BigDecimal";
+            }*/
+        if (type.equals("Timestamp")) {
+            type = "Date";
+        }
+        return type;
+    }
+
     public static class TableStruct {
         public String catalog;
         public String schema;

@@ -52,6 +52,7 @@ public class ListTableColumnController extends ApiController {
             o.put("columnDef", one.columnDef);
             o.put("columnSize", one.columnSize);
             o.put("dataType", one.dataType);
+            o.put("javaType", JdbcTool.convertJavaType(one.dataType,one.columnSize,one.decimalDigits));
             o.put("decimalDigits", one.decimalDigits);
             o.put("isAutoIncrement", one.isAutoIncrement);
             o.put("isNullable", one.isNullable);

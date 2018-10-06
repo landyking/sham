@@ -57,14 +57,7 @@ public abstract class AbstractTemplate {
         for (JdbcTool.ColumnStruct col : model.columns) {
             col.javaName = StringKit.deCodeUnderlined(col.name.toLowerCase());
             col.javaMethodName = StringKit.toUpperCaseFirstOne(col.javaName);
-            String type = JavaType.getType(col.dataType, col.columnSize, col.decimalDigits);
-            /*if(config.isPreferBigDecimal()&&type.equals("Double")){
-                type = "BigDecimal";
-            }*/
-            if(type.equals("Timestamp")){
-                type ="Date";
-            }
-            col.javaTypeName = type;
+            col.javaTypeName = JdbcTool.convertJavaType(col.dataType,col.columnSize,col.decimalDigits);
             if (!Texts.hasText(col.remarks)) {
                 col.remarks = col.javaName;
             }

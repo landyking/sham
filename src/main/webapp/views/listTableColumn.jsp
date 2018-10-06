@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="layui-card">
-        <div class="layui-card-body">
+    <div class="layui-card-body">
         <table id="dataTable" lay-filter="dataTable"></table>
     </div>
 </div>
@@ -44,9 +44,10 @@
                 limits: [1000],
                 cols: [[
                     {type: 'numbers', fixed: true},
-                    {field: 'remarks', title: '描述', minWidth: 100},
-                    {field: 'name', title: '列名', width: 140},
-                    {field: 'dataType', title: 'SQL类型', width: 90},
+                    {field: 'remarks', title: '描述', minWidth: 100, fixed: true},
+                    {field: 'name', title: '列名', width: 140, fixed: true},
+                    {field: 'dataType', title: 'SQL类型', width: 90, hide: true},
+                    {field: 'javaType', title: 'Java类型', width: 120},
                     {field: 'typeName', title: '数据库类型', width: 120},
                     {field: 'columnSize', title: '大小', width: 70},
                     {field: 'decimalDigits', title: '精度', width: 70},
