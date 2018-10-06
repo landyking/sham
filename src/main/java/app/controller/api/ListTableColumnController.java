@@ -55,6 +55,7 @@ public class ListTableColumnController extends ApiController {
             o.put("decimalDigits", one.decimalDigits);
             o.put("isAutoIncrement", one.isAutoIncrement);
             o.put("isNullable", one.isNullable);
+            o.put("isPrimaryKey", one.primaryKey?"YES":"NO");
             o.put("typeName", one.typeName);
             o.put("remarks", one.remarks);
         }

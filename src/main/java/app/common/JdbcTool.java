@@ -2,6 +2,7 @@ package app.common;
 
 import app.service.DBType;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.jdbc.support.JdbcUtils;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by landy on 2018/10/5.
@@ -19,20 +21,111 @@ public class JdbcTool {
         public String catalog;
         public String schema;
         public String name;
+        public transient String javaName;
+        public transient String javaLowerName;
         public String remarks;
         public String type;
+        public final transient List<ColumnStruct> columns = Lists.newLinkedList();
+
+        public String getCatalog() {
+            return catalog;
+        }
+
+        public String getSchema() {
+            return schema;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getJavaName() {
+            return javaName;
+        }
+
+        public String getJavaLowerName() {
+            return javaLowerName;
+        }
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public List<ColumnStruct> getColumns() {
+            return columns;
+        }
     }
 
     public static class ColumnStruct {
         public String name;
+        public transient String javaName;
+        public transient String javaMethodName;
         public Integer dataType;
         public String typeName;
+        public transient String javaTypeName;
         public Integer columnSize;
         public Integer decimalDigits;
         public String remarks;
         public String columnDef;
         public String isNullable;
         public String isAutoIncrement;
+        public Boolean primaryKey;
+
+        public String getName() {
+            return name;
+        }
+
+        public String getJavaName() {
+            return javaName;
+        }
+
+        public String getJavaMethodName() {
+            return javaMethodName;
+        }
+
+        public Integer getDataType() {
+            return dataType;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+
+        public String getJavaTypeName() {
+            return javaTypeName;
+        }
+
+        public Integer getColumnSize() {
+            return columnSize;
+        }
+
+        public Integer getDecimalDigits() {
+            return decimalDigits;
+        }
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public String getColumnDef() {
+            return columnDef;
+        }
+
+        public String getIsNullable() {
+            return isNullable;
+        }
+
+        public String getIsAutoIncrement() {
+            return isAutoIncrement;
+        }
+
+        public Boolean getPrimaryKey() {
+            return primaryKey;
+        }
     }
 
     public static List<String> listCatalog(DBType dataBaseType, Connection connection) throws SQLException {
@@ -135,6 +228,12 @@ public class JdbcTool {
             throw new RuntimeException("未指定表");
         }
         List<ColumnStruct> rst = Lists.newLinkedList();
+        Set<String> pkColumns = Sets.newHashSet();
+        ResultSet pks = connection.getMetaData().getPrimaryKeys(cat, schema, table);
+        while (pks.next()) {
+            String name = pks.getString("COLUMN_NAME");
+            pkColumns.add(name);
+        }
         ResultSet columns = connection.getMetaData().getColumns(cat, schema, table, "%");
         int max = 1000;
         int count = 0;
@@ -160,6 +259,7 @@ public class JdbcTool {
             cs.columnDef = column_def;
             cs.isNullable = is_nullable;
             cs.isAutoIncrement = is_autoincrement;
+            cs.primaryKey = pkColumns.contains(column_name);
             rst.add(cs);
         }
         return rst;

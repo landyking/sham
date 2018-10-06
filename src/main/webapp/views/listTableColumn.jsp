@@ -15,26 +15,7 @@
 </head>
 <body>
 <div class="layui-card">
-    <div class="layui-card-header sham-card-header">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">模板</label>
-                    <div class="layui-input-block" style="width:100px;">
-                        <select name="template" lay-filter="dataSource" class="hy-select"
-                                lay-data="{url:'api/listDataSource',firstEmpty:true}">
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="searchExec">
-                        <i class="layui-icon layui-icon-star"></i>生成代码
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="layui-card-body">
+        <div class="layui-card-body">
         <table id="dataTable" lay-filter="dataTable"></table>
     </div>
 </div>
@@ -49,6 +30,7 @@
         var $ = layui.$;
         layui.singleTableList.render({
             layFilter: 'dataTable',
+            searchExecLayFilter: null,
             tableConfig: {
                 url: 'api/listTableColumn',
                 where: {
@@ -62,12 +44,13 @@
                 limits: [1000],
                 cols: [[
                     {type: 'numbers', fixed: true},
-                    {field: 'remarks', title: '描述',minWidth:100},
-                    {field: 'name', title: '列名', width: 120},
+                    {field: 'remarks', title: '描述', minWidth: 100},
+                    {field: 'name', title: '列名', width: 140},
                     {field: 'dataType', title: 'SQL类型', width: 90},
                     {field: 'typeName', title: '数据库类型', width: 120},
-                    {field: 'columnSize', title: '大小', width: 90},
-                    {field: 'decimalDigits', title: '精度', width: 90},
+                    {field: 'columnSize', title: '大小', width: 70},
+                    {field: 'decimalDigits', title: '精度', width: 70},
+                    {field: 'isPrimaryKey', title: '主键', width: 70},
                     {field: 'isNullable', title: '可空', width: 70},
                     {field: 'columnDef', title: '默认', width: 100},
                     {field: 'isAutoIncrement', title: '自增', width: 70}

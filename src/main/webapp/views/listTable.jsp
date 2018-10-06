@@ -65,7 +65,9 @@
         </script>
         <script type="text/html" id="tableRowMenu">
             <a class="layui-btn layui-btn-xs" lay-event="dialog"
-               lay-data="{url:'views/listTableColumn.jsp',width:800,height:600,title:'test',params:{dataSource:'?',name:'?',catalog:'?',schema:'?'}}">表结构</a>
+               lay-data="{url:'views/listTableColumn.jsp',width:800,height:600,title:'表结构',params:{dataSource:'?',name:'?',catalog:'?',schema:'?'}}">表结构</a>
+            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="dialog"
+               lay-data="{url:'views/codeGen.jsp',width:800,height:600,title:'代码生成',params:{dataSource:'?',name:'?',catalog:'?',schema:'?'}}">代码生成</a>
         </script>
     </div>
 </div>
@@ -90,7 +92,7 @@
                     {field: 'type', title: '类型', width: 120},
                     {field: 'name', title: '名称', width: 200},
                     {field: 'remarks', title: '描述'},
-                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 100}
+                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 150}
                 ]]
             },
             toolbarListener: {},

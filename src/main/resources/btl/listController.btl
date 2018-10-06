@@ -1,0 +1,37 @@
+import app.common.DateTimeTool;
+import app.common.QuickJson;
+import app.common.Texts;
+import app.common.web.SuperParam;
+import app.controller.admin.AdminController;
+import com.fasterxml.jackson.databind.node.*;
+import gen.*;
+import java.util.*;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+
+@Component
+public class List${m.javaName}Controller extends AdminController {
+
+    @Override
+    protected ModelAndView doWork(SuperParam superParam) throws Exception {
+        Integer page = superParam.getParam("page", Integer.class, 1);
+        Integer limit = superParam.getParam("limit", Integer.class, 10);
+        long total = sql.query(${m.javaName}.class).count();
+        List<${m.javaName}> list = sql.query(${m.javaName}.class)
+                 .limit(calcStartRow(page,limit), limit).select();
+        ObjectNode rst = QuickJson.newObject();
+        rst.put("code", 0);
+        rst.put("msg", "ok");
+        rst.put("count",total);
+        ArrayNode data = rst.putArray("data");
+        for (${m.javaName} one : list) {
+            ObjectNode o = data.addObject();
+
+            <%for(attr in m.columns){%>
+            o.putPOJO("${attr.javaName}",one.get${attr.javaMethodName}());
+           <%}%>
+        }
+        return jsonResult(rst);
+    }
+}
+
