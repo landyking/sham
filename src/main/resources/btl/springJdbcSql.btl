@@ -1,0 +1,67 @@
+<%
+var i=0;
+var cols="";
+for(attr in m.columns){
+    if(i!=0){
+        cols=cols+", ";
+    }
+    cols=cols+attr.name;
+    i++;
+}
+
+i=0;
+var params="";
+for(attr in m.columns){
+    if(i!=0){
+        params=params+", ";
+    }
+    params=params+":"+attr.javaName;
+    i++;
+}
+
+i=0;
+var selectCols="";
+for(attr in m.columns){
+    if(i!=0){
+        selectCols=selectCols+", ";
+    }
+    selectCols=selectCols+"t."+attr.name;
+    i++;
+}
+
+i=0;
+var updateCondition="";
+for(attr in m.columns){
+    if(i!=0){
+        updateCondition=updateCondition+", ";
+    }
+    updateCondition=updateCondition+attr.name+" = :"+attr.javaName;
+    i++;
+}
+i=0;
+var pkNames="";
+for(attr in m.columns){
+    if(attr.primaryKey){
+        if(i!=0){
+            pkNames=pkNames+", ";
+        }
+        pkNames=pkNames+attr.name;
+    }
+    i++;
+}
+%>
+### primary key
+
+${pkNames}
+
+### insert
+
+insert into ${m.name} (${cols}) values (${params})
+
+### update
+
+update ${m.name} set ${updateCondition} where id = :id
+
+### select
+
+select ${selectCols} from ${m.name} where t.id = :id
