@@ -1,53 +1,40 @@
 <%
-var i=0;
 var cols="";
 for(attr in m.columns){
-    if(i!=0){
+    if(!attrLP.first){
         cols=cols+", ";
     }
     cols=cols+attr.name;
-    i++;
 }
 
-i=0;
 var params="";
 for(attr in m.columns){
-    if(i!=0){
+    if(!attrLP.first){
         params=params+", ";
     }
     params=params+":"+attr.javaName;
-    i++;
 }
 
-i=0;
 var selectCols="";
 for(attr in m.columns){
-    if(i!=0){
+    if(!attrLP.first){
         selectCols=selectCols+", ";
     }
     selectCols=selectCols+"t."+attr.name;
-    i++;
 }
 
-i=0;
 var updateCondition="";
 for(attr in m.columns){
-    if(i!=0){
+    if(!attrLP.first){
         updateCondition=updateCondition+", ";
     }
     updateCondition=updateCondition+attr.name+" = :"+attr.javaName;
-    i++;
 }
-i=0;
 var pkNames="";
 for(attr in m.columns){
     if(attr.primaryKey){
-        if(i!=0){
-            pkNames=pkNames+", ";
-        }
-        pkNames=pkNames+attr.name;
+        pkNames=pkNames+attr.name+", ";
     }
-    i++;
 }
 %>
 ### primary key

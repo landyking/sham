@@ -1,0 +1,21 @@
+listPageData
+===
+    select
+    @pageTag(){
+        t.*
+    }
+    from ${m.name} t
+    where 1=1
+    <%
+    for(col in m.columns){
+     var colName=col.name;
+     var attr = col.javaName;
+    %>
+    @if(!isEmpty(${attr})){
+    and t.${colName} = #${attr}#
+    and t.${colName} like #'%'+${attr}+'%'#
+    @}
+    <%}%>
+    @pageIgnoreTag(){
+    order by t.create_time desc
+    @}
