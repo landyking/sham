@@ -22,7 +22,7 @@
                     <label class="layui-form-label">模板</label>
                     <div class="layui-input-block" style="width:160px;">
                         <select name="template" lay-filter="dataSource" class="hy-select"
-                                lay-data="{url:'api/listTemplate',firstEmpty:true}">
+                                lay-data="{url:'api/listTemplate'}">
                         </select>
                     </div>
                 </div>

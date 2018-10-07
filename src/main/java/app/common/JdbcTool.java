@@ -162,7 +162,7 @@ public class JdbcTool {
 
     public static List<String> listSchema(DBType dataBaseType, Connection connection) throws SQLException {
         LinkedList<String> rst = Lists.newLinkedList();
-        if (dataBaseType == DBType.Oracle) {
+       /* if (dataBaseType == DBType.Oracle) {
             try (Statement statement = connection.createStatement()) {
                 ResultSet rs = statement.executeQuery("(select owner from user_tab_privs group by owner) union (select user from dual)");
                 while (rs.next()) {
@@ -170,7 +170,7 @@ public class JdbcTool {
                     rst.add(one);
                 }
             }
-        } else {
+        } else */{
             ResultSet catalogs = connection.getMetaData().getSchemas();
             while (catalogs.next()) {
                 String one = catalogs.getString("TABLE_SCHEM");
@@ -206,7 +206,7 @@ public class JdbcTool {
         ResultSet tables = connection.getMetaData().getTables(cat, schema, table, types);
         int max = 1000;
         int count = 0;
-        while (tables.next() && count++ <= max) {
+        while (tables.next() && count++ < max) {
             String table_cat = tables.getString("TABLE_CAT");
             String table_schem = tables.getString("TABLE_SCHEM");
             String table_name = tables.getString("TABLE_NAME");
