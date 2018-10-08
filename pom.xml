@@ -156,7 +156,7 @@
         </profile>
     </profiles>
     <build>
-        <finalName>qxrrp</finalName>
+        <finalName>sham</finalName>
         <filters>
             <filter>profiles/${build.profile.id}/filters-${build.profile.id}.properties</filter>
         </filters>
