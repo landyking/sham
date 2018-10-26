@@ -3,7 +3,7 @@ listPageData
     select
     @pageTag(){
         t.*
-    }
+    @}
     from ${m.name} t
     where 1=1
     <%
