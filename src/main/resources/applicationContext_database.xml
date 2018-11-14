@@ -8,10 +8,10 @@
 				         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 2.引入jdbc.properties -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
-    <bean id="oracle" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="${jdbc.oracle.url}"/>
-        <property name="username" value="${jdbc.oracle.username}"/>
-        <property name="password" value="${jdbc.oracle.password}"/>
+    <bean id="phare" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:h2:tcp://localhost/~/.h2/test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
         <property name="connectProperties">
             <props>
                 <prop key="remarks">true</prop>
@@ -19,7 +19,7 @@
             </props>
         </property>
     </bean>
-    <bean id="mysql" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <!--<bean id="mysql" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${jdbc.mysql.url}"/>
         <property name="username" value="${jdbc.mysql.username}"/>
         <property name="password" value="${jdbc.mysql.password}"/>
@@ -29,5 +29,5 @@
                 <prop key="remarksReporting">true</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 </beans>

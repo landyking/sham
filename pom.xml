@@ -84,12 +84,17 @@
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>ojdbc6</artifactId>-->
+            <!--<version>12.1.0.2</version>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6-12.1.0.2.jar</systemPath>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>12.1.0.2</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6-12.1.0.2.jar</systemPath>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.196</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -214,6 +219,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/sham</path>
+                    <port>8888</port>
                     <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>
