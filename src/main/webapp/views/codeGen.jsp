@@ -47,7 +47,12 @@
     <div class="layui-card-body">
         <blockquote class="layui-elem-quote">
             <span id="tableName"></span>
-            <span id="fileName"></span>
+            <p style="display: none;">文件名: <span id="fileName" ></span>
+                <a class="layui-btn layui-btn-sm layui-btn-normal copyName">
+                    <i class="layui-icon layui-icon-code-circle"></i>复制
+                </a>
+            <p>
+
         </blockquote>
         <pre class="layui-code" id="showCode">
         </pre>
@@ -76,12 +81,21 @@
                     var code = $("#showCode");
                     code.empty();
                     code.text(rst.data);
-                    $("#fileName").html(" 文件名: " + rst.fileName);
+                    var $fileName = $("#fileName");
+                    $fileName.parent().show();
+                    $fileName.html(rst.fileName);
                 } else {
                     layer.msg("生成失败" + rst.msg);
                 }
             });
             return false;
+        });
+        new ClipboardJS('.copyName', {
+            text: function (trigger) {
+                return $("#fileName").text();
+            }
+        }).on('success', function () {
+            layui.tips.success('复制成功');
         });
         new ClipboardJS('.copyCode', {
             text: function (trigger) {

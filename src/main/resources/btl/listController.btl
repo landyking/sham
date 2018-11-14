@@ -8,6 +8,7 @@ import gen.*;
 import java.util.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
+import org.beetl.sql.core.engine.PageQuery;
 
 @Component
 public class List${m.javaName}Controller extends AdminController {
