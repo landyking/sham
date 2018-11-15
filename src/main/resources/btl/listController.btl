@@ -9,15 +9,14 @@ import java.util.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.engine.CustomPageQuery;
 
 @Component
 public class List${m.javaName}Controller extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
-        Integer page = superParam.getParam("page", Integer.class, 1);
-        Integer limit = superParam.getParam("limit", Integer.class, 10);
-        PageQuery<${m.javaName}> query = new PageQuery<>(page.longValue(), limit.longValue());
+        PageQuery<${m.javaName}> query = new CustomPageQuery<>(superParam);
         PageQuery<${m.javaName}> pageData = sql.pageQuery("${m.javaLowerName}Ex.listPageData", ${m.javaName}.class, query);
         ObjectNode rst = QuickJson.newObject();
         rst.put("code", 0);
