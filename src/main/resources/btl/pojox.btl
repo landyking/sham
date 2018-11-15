@@ -7,10 +7,10 @@ ${implSerializable?"import java.io.Serializable;"}
 * ${m.remarks}
 */
 @Table(name="${m.name}")
-public class ${m.javaName} ${!isEmpty(ext)?"extends "+ext} ${implSerializable?"implements Serializable"} {
+public class ${m.javaName} ${hasValue(ext)?"extends "+ext} ${implSerializable?"implements Serializable"} {
 
 	<%for(attr in m.columns){
-			if(!isEmpty(attr.remarks)){%>
+			if(hasValue(attr.remarks)){%>
 	/*
 	${attr.remarks}
 	*/

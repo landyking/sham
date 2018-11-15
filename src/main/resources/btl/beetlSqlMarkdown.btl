@@ -11,7 +11,7 @@ listPageData
      var colName=col.name;
      var attr = col.javaName;
     %>
-    @if(!isEmpty(${attr})){
+    @if(hasValue(${attr})){
     and t.${colName} = #${attr}#
     and t.${colName} like #'%'+${attr}+'%'#
     @}
