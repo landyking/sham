@@ -1,3 +1,5 @@
+package app.controller.admin.${m.javaLowerName};
+
 import app.common.DateTimeTool;
 import app.common.QuickJson;
 import app.common.Texts;
