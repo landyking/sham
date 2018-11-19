@@ -34,8 +34,8 @@ public abstract class AbstractTemplate {
             @Override
             public JdbcTool.TableStruct doInConnection(Connection connection) throws SQLException, DataAccessException {
                 List<JdbcTool.TableStruct> tables = JdbcTool.listTable(dataBaseType, connection, catalog, schema, null, table);
-                Assert.isTrue(tables.size() > 0, "表不存在");
-                Assert.isTrue(tables.size() < 2, "存在多张表");
+                Assert.isTrue(tables.size() > 0, "表"+table+"不存在");
+                Assert.isTrue(tables.size() < 2, "存在多张表"+table);
                 JdbcTool.TableStruct rst = tables.get(0);
                 List<JdbcTool.ColumnStruct> columns = JdbcTool.listTableColumn(dataBaseType, connection, catalog, schema, table);
                 rst.columns.addAll(columns);
