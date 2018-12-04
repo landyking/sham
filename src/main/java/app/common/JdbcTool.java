@@ -170,7 +170,8 @@ public class JdbcTool {
                     rst.add(one);
                 }
             }
-        } else */{
+        } else */
+        {
             ResultSet catalogs = connection.getMetaData().getSchemas();
             while (catalogs.next()) {
                 String one = catalogs.getString("TABLE_SCHEM");
@@ -180,25 +181,41 @@ public class JdbcTool {
         return rst;
     }
 
+    public static String toUpper(String s, boolean upper) {
+        if (upper) {
+            return s.toUpperCase();
+        } else {
+            return s;
+        }
+    }
+
     public static List<TableStruct> listTable(DBType dataBaseType, Connection connection, String cat, String schema, String type, String table) throws SQLException {
+        List<TableStruct> tableStructs = listTable0(connection, cat, schema, type, table, false);
+        if (tableStructs.isEmpty()) {
+            return listTable0(connection, cat, schema, type, table, true);
+        }
+        return tableStructs;
+    }
+
+    private static List<TableStruct> listTable0(Connection connection, String cat, String schema, String type, String table, boolean forceUpper) throws SQLException {
         if (Texts.hasText(cat)) {
-            cat = cat.trim().toUpperCase();
+            cat = toUpper(cat.trim(), forceUpper);
         } else {
             cat = null;
         }
         if (Texts.hasText(schema)) {
-            schema = schema.trim().toUpperCase();
+            schema = toUpper(schema.trim(), forceUpper);
         } else {
             schema = null;
         }
         String[] types = null;
         if (Texts.hasText(type)) {
-            types = new String[]{type.trim().toUpperCase()};
+            types = new String[]{toUpper(type.trim(), forceUpper)};
         } else {
             types = null;
         }
         if (Texts.hasText(table)) {
-            table = table.trim().toUpperCase();
+            table = toUpper(table.trim(), forceUpper);
         } else {
             table = "%";
         }
@@ -224,18 +241,26 @@ public class JdbcTool {
     }
 
     public static List<ColumnStruct> listTableColumn(DBType dataBaseType, Connection connection, String cat, String schema, String table) throws SQLException {
+        List<ColumnStruct> columnStructs = listTableColumn0(connection, cat, schema, table, false);
+        if (columnStructs.isEmpty()) {
+            return listTableColumn0(connection, cat, schema, table, true);
+        }
+        return columnStructs;
+    }
+
+    private static List<ColumnStruct> listTableColumn0(Connection connection, String cat, String schema, String table, boolean foreUpper) throws SQLException {
         if (Texts.hasText(cat)) {
-            cat = cat.trim().toUpperCase();
+            cat = toUpper(cat.trim(), foreUpper);
         } else {
             cat = null;
         }
         if (Texts.hasText(schema)) {
-            schema = schema.trim().toUpperCase();
+            schema = toUpper(schema.trim(), foreUpper);
         } else {
             schema = null;
         }
         if (Texts.hasText(table)) {
-            table = table.trim().toUpperCase();
+            table = toUpper(table.trim(), foreUpper);
         } else {
             throw new RuntimeException("未指定表");
         }
